@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('middle_name')->nullable();
             $table->string('birthday');
+            $table->string('email');
             $table->text('token')->nullable();
             $table->datetime('token_expired')->nullable();
             $table->timestamps();
