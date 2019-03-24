@@ -1,21 +1,23 @@
-# Lumen PHP Framework
+# MTS Pass
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+Пример реализации сервиса MTS Pass в связке с OAuth 2.0, позволяющего сторонним разработчикам реализовать возможность авторизации в своих сервисах и приложениях посредством MTS Pass API в один клик.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Так как мы не имеем возможности протестировать работу сервиса в связке с реальной базовой станцией, которая идентифицирует абонента на основе его номера, номер абонента, в качестве теста, передается параметром в API метод.
 
-## Official Documentation
+## API
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+http://dev1.evgenytk.com/authenticate
 
-## Security Vulnerabilities
+ - callback_url - redirect URL сервиса разработчика;
+ - phone - телефон для симуляции работы базовой станции;
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+Пример запроса: 
 
-## License
+	http://dev1.evgenytk.com/authenticate?callback_url=http://dev2.evgenytk.com/callback-mts&phone=79121168423
+ 
+После успешной авторизации браузер будет перенаправлен по адресу callback_url. При этом ключ доступа к API token и другие параметры будут переданы в URL-фрагменте ссылки: 
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+	http://dev2.evgenytk.com/callback-mts?success=1&token=STtytPZEgIVsa95uDajyFAmtigGvAv1K&token_expired=2019-03-24+02%3A06%3A08
+
+
+
